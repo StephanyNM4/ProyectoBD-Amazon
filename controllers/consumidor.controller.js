@@ -140,7 +140,7 @@ consumidorController.actualizar = async (req, res) => {
     }
 }
 
-consumidorController.login = consumidorController.obtenerUno  = async (req, res) => {
+consumidorController.login = async (req, res) => {
     try {
         //Hacemos la conexion
         const connection = await oracledb.getConnection(dbConfig);
@@ -175,8 +175,7 @@ consumidorController.login = consumidorController.obtenerUno  = async (req, res)
     }
 }
 
-consumidorController.pedidoEstado = //SELECT TODOS
-consumidorController.obtenerTodos = async (req, res) => {
+consumidorController.pedidoEstado  = async (req, res) => {
     try {
         //Hacemos la conexion
         const connection = await oracledb.getConnection(dbConfig);
@@ -217,6 +216,43 @@ consumidorController.obtenerTodos = async (req, res) => {
 
         // Enviar los datos
         res.send(result.rows); 
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+consumidorController.obtenerDirecciones = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT A.ID_CONSUMIDOR, 
+                                A.ID_DIRECCION_CONSUMIDOR , 
+                                B.LUGAR  AS "DIRECCION",
+                                B.ZIP,
+                                A.COSTO_ENVIO
+                            FROM TBL_DIRECCIONES_CONSUMIDOR A
+                            LEFT JOIN TBL_LUGARES B  
+                            ON (A.ID_LUGAR=B.ID_LUGAR)
+                            WHERE 
+                            A.ID_CONSUMIDOR = ${req.params.id}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const data = result.rows;
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        // Enviar los datos
+        res.json(data); 
 
     } catch (error) {
 

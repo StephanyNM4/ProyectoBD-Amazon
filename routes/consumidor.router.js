@@ -8,5 +8,6 @@ router.post('/', consumidorController.agregar);
 router.put('/:id', consumidorController.actualizar);
 router.post('/login', consumidorController.login);
 router.get('/:idConsumidor/pedidos/estado/:idEstado', consumidorController.pedidoEstado);
+router.get('/:id/direcciones', consumidorController.obtenerDirecciones);
 
 module.exports=router;
