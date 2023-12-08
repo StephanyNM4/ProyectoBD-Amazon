@@ -346,6 +346,8 @@ productoController.obtenerUno = async (req, res) => {
     }
 }
 
+
+
 module.exports = productoController;
 
 
