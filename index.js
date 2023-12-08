@@ -12,11 +12,13 @@ const consumidoresRouter = require('./routes/consumidor.router');
 const pedidosRouter = require('./routes/pedido.router');
 const estadosRouter = require('./routes/estado.router');
 const direccionesRouter = require('./routes/direccion.router');
+const mensajesRouter = require('./routes/mensajes.router');
 
 app.use('/consumidores', consumidoresRouter);
 app.use('/pedidos', pedidosRouter);
 app.use('/estados', estadosRouter);
 app.use('/direcciones', direccionesRouter);
+app.use('/mensajes', mensajesRouter);
 
 app.get('/', (req, res) => {
     res.send("Servidor levantado correctamente");
