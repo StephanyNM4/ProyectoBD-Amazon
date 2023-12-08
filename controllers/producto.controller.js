@@ -64,68 +64,6 @@ productoController.obtenerProductosPorCat = async (req, res) => {
     }
 }
 
-productoController.obtenerProductosPorKeywords = async (req, res) => {
-    try {
-        //Hacemos la conexion
-        const connection = await oracledb.getConnection(dbConfig);
-
-        //Secuencia sql 
-        const secuenciaSQL= `WITH CTE AS (
-            SELECT
-                DISTINCT A.NOMBRE AS "PRODUCTO",
-                NVL(C.NOMBRE, 'SIN MARCA') AS "MARCA",
-                D.ID_PROD_VEND,
-                D.PRECIO,
-                D.DESCUENTO,
-                E.ESTADO,
-                F.SRC AS "IMAGEN",
-                ROW_NUMBER() OVER (
-                    PARTITION BY D.ID_PROD_VEND
-                    ORDER BY
-                        F.ID_IMAGEN
-                ) AS row_num
-            FROM
-                TBL_PRODUCTOS A
-                LEFT JOIN TBL_KEYWORDS_PRODUCTOS B ON A.ID_PRODUCTO = B.ID_PRODUCTO
-                LEFT JOIN TBL_MARCAS C ON A.ID_MARCA = C.ID_MARCA
-                LEFT JOIN TBL_PRODUCTOS_EN_VENTA D ON A.ID_PRODUCTO = D.ID_PRODUCTO
-                LEFT JOIN TBL_ESTADOS_PRODUCTOS E ON D.ID_ESTADO = E.ID_ESTADO
-                LEFT JOIN TBL_IMAGENES F ON A.ID_PRODUCTO = F.ID_PRODUCTO
-            WHERE
-                B.ID_KEYWORD = ${req.params.id} --AQUI SE INGRESA EL VALOR DE LAS KEYWORDS PARA BUSCAR
-        )
-        SELECT
-            "PRODUCTO",
-            "MARCA",
-            ID_PROD_VEND,
-            PRECIO,
-            DESCUENTO,
-            ESTADO,
-            "IMAGEN"
-        FROM
-            CTE
-        WHERE
-            row_num = 1`;
-
-        //para que devuelva en JSON los rows
-        const options= {
-            outFormat: oracledb.OUT_FORMAT_OBJECT,
-        };
-
-        const result = await connection.execute(secuenciaSQL,[],options);
-
-        // Cerrar la conexión después de obtener los datos
-        await connection.close(); 
-
-        // Enviar los datos
-        res.send(result.rows); 
-
-    } catch (error) {
-
-        res.status(500).send({ error: error.message }); 
-    }
-}
-
 productoController.obtenerProductosPorNombre = async (req, res) => {
     try {
         //Hacemos la conexion
@@ -195,7 +133,7 @@ productoController.obtenerIdKeywordPorNombre = async (req, res) => {
         //Secuencia sql 
         const secuenciaSQL= `SELECT ID_KEYWORD 
         FROM TBL_KEYWORDS
-        WHERE KEYWORD = '${keyword}'`;
+        WHERE lower(KEYWORD) = lower('${keyword}')`;
 
         //para que devuelva en JSON los rows
         const options= {
@@ -203,12 +141,65 @@ productoController.obtenerIdKeywordPorNombre = async (req, res) => {
         };
 
         const result = await connection.execute(secuenciaSQL,[],options);
+        console.log(result.rows[0]);
+        
+        
+        if(result.rows[0]!= undefined){
+            const idKeyword = result.rows[0].ID_KEYWORD;
+            //Secuencia sql 
+            const secuenciaSQL1= `WITH CTE AS (
+                SELECT
+                    DISTINCT A.NOMBRE AS "PRODUCTO",
+                    NVL(C.NOMBRE, 'SIN MARCA') AS "MARCA",
+                    D.ID_PROD_VEND,
+                    D.PRECIO,
+                    D.DESCUENTO,
+                    E.ESTADO,
+                    F.SRC AS "IMAGEN",
+                    ROW_NUMBER() OVER (
+                        PARTITION BY D.ID_PROD_VEND
+                        ORDER BY
+                            F.ID_IMAGEN
+                    ) AS row_num
+                FROM
+                    TBL_PRODUCTOS A
+                    LEFT JOIN TBL_KEYWORDS_PRODUCTOS B ON A.ID_PRODUCTO = B.ID_PRODUCTO
+                    LEFT JOIN TBL_MARCAS C ON A.ID_MARCA = C.ID_MARCA
+                    LEFT JOIN TBL_PRODUCTOS_EN_VENTA D ON A.ID_PRODUCTO = D.ID_PRODUCTO
+                    LEFT JOIN TBL_ESTADOS_PRODUCTOS E ON D.ID_ESTADO = E.ID_ESTADO
+                    LEFT JOIN TBL_IMAGENES F ON A.ID_PRODUCTO = F.ID_PRODUCTO
+                WHERE
+                    B.ID_KEYWORD = ${idKeyword} --AQUI SE INGRESA EL VALOR DE LAS KEYWORDS PARA BUSCAR
+            )
+            SELECT
+                "PRODUCTO",
+                "MARCA",
+                ID_PROD_VEND,
+                PRECIO,
+                DESCUENTO,
+                ESTADO,
+                "IMAGEN"
+            FROM
+                CTE
+            WHERE
+                row_num = 1`;
 
-        // Cerrar la conexión después de obtener los datos
-        await connection.close(); 
+            //para que devuelva en JSON los rows
+            const options= {
+                outFormat: oracledb.OUT_FORMAT_OBJECT,
+            };
 
-        // Enviar los datos
-        res.send(result.rows); 
+            const result1 = await connection.execute(secuenciaSQL1,[],options);
+
+            // Cerrar la conexión después de obtener los datos
+            await connection.close(); 
+
+            // Enviar los datos
+            res.send(result1.rows); 
+
+        }else{
+            res.send({exito:false, mensaje: "No existe keyword en la base de datos"});
+        }
 
     } catch (error) {
 
@@ -265,6 +256,89 @@ productoController.obtenerProductosEnOferta = async (req, res) => {
 
         // Enviar los datos
         res.send(result.rows); 
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+productoController.obtenerUno = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT
+                            A.ID_PROD_VEND,
+                            A.SKU,
+                            A.CANTIDAD AS STOCK,
+                            B.NOMBRE AS "PRODUCTO",
+                            B.DESCRIPCION,
+                            B.CALIFICACION,
+                            B.DIMENSIONES,
+                            B.CARACTERISTICA_ESPECIAL,
+                            B.VINETAS,
+                            B.AVISO_LEGAL,
+                            NVL(C.NOMBRE, 'SIN MARCA') AS "MARCA",
+                            A.PRECIO,
+                            A.DESCUENTO,
+                            D.ESTADO,
+                            (E.PRIMER_NOMBRE || ' ' || E.APELLIDO) AS "VENDEDOR",
+                            F.NOMBRE AS EMPRESA
+                        FROM
+                            TBL_PRODUCTOS_EN_VENTA A
+                            LEFT JOIN TBL_PRODUCTOS B ON A.ID_PRODUCTO = B.ID_PRODUCTO
+                            LEFT JOIN TBL_MARCAS C ON B.ID_MARCA = C.ID_MARCA
+                            LEFT JOIN TBL_ESTADOS_PRODUCTOS D ON A.ID_ESTADO = D.ID_ESTADO
+                            LEFT JOIN TBL_VENDEDORES E ON A.ID_VENDEDOR = E.ID_VENDEDOR
+                            LEFT JOIN TBL_EMPRESAS F ON E.ID_EMPRESA = F.ID_EMPRESA
+                        WHERE
+                            A.ID_PROD_VEND = ${req.params.id}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const producto = result.rows[0];
+
+        
+
+        if(producto != null){
+            const secuenciaSQL1= `SELECT
+                                    A.ID_IMAGEN,
+                                    A.SRC
+                                FROM
+                                    TBL_IMAGENES A
+                                WHERE
+                                    A.ID_PRODUCTO = ${req.params.id}`;
+
+            const result1 = await connection.execute(secuenciaSQL1,[],options);
+            const imagenes= result1.rows;
+
+            const secuenciaSQL2= `SELECT A.ID_COMENTARIO,
+                                    B.NOMBRE,
+                                    A.CALIFICACION,
+                                    A.ENCABEZADO,
+                                    A.FECHA_PUBLICACION,
+                                    A.COMENTARIO,
+                                    A.UTIL
+                            FROM TBL_COMENTARIOS A
+                            INNER JOIN TBL_CONSUMIDORES B
+                            ON(A.ID_CONSUMIDOR = B.ID_CONSUMIDOR)
+                            WHERE ID_PRODUCTO = ${req.params.id}`;
+
+       
+            const result = await connection.execute(secuenciaSQL2,[],options);
+            const comentarios= result.rows;
+            await connection.close(); 
+            
+            res.send({producto, imagenes, comentarios});
+        }else{
+            res.send({exito:false, mensaje: "No existe producto"});
+        }
 
     } catch (error) {
 
