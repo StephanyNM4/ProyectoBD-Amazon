@@ -6,5 +6,7 @@ router.get('/', consumidorController.obtenerTodos);
 router.get('/:id', consumidorController.obtenerUno);
 router.post('/', consumidorController.agregar);
 router.put('/:id', consumidorController.actualizar);
+router.post('/login', consumidorController.login);
+router.get('/:idConsumidor/pedidos/estado/:idEstado', consumidorController.pedidoEstado);
 
 module.exports=router;
