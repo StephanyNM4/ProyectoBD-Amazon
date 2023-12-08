@@ -209,4 +209,120 @@ pedidoController.agregar = async (req, res) => {
     }
 }
 
+pedidoController.estadoEntregado = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `UPDATE TBL_PEDIDOS 
+        SET ID_ESTADO = 8
+        WHERE ID_PEDIDO = ${req.params.id}`;
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        await connection.close();
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            res.send({exito:true, mensaje:"Pedido entregado"});
+        }else{
+            res.send({exito:false, mensaje:"No existe el pedido"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+pedidoController.cancelar = async (req, res) => {
+
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+        const exito = true;
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT A.ID_PROD_VEND,
+                                    A.CANTIDAD CANTIDAD_VENTA,
+                                    B.CANTIDAD
+                            FROM TBL_PRODUCTOS_PEDIDOS A
+                            LEFT JOIN TBL_PRODUCTOS_EN_VENTA B
+                            ON (A.ID_PROD_VEND = B.ID_PROD_VEND)
+                            WHERE ID_PEDIDO = ${req.params.id}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const productosPedido = result.rows;
+        
+
+        
+        if(productosPedido.length>0){
+            //Atualizar stock
+            await Promise.all(productosPedido.map(async (prod) => {
+
+                const secuenciaSQL= `UPDATE TBL_PRODUCTOS_EN_VENTA
+                SET cantidad = :nuevaCantidad
+                WHERE ID_PROD_VEND = :idProducto`;
+
+                //Objeto consumidor
+                const binds = {
+                    nuevaCantidad: prod.CANTIDAD + prod.CANTIDAD_VENTA,
+                    idProducto: prod.ID_PROD_VEND
+                };
+
+                //para que haga el commit
+                const options= {
+                    autoCommit: true,
+                    outFormat: oracledb.OUT_FORMAT_OBJECT
+                };
+
+                const result = await connection.execute(secuenciaSQL,binds,options);    
+                if (result.rowsAffected != 1) {
+                    exito = false;
+                } 
+            }));
+
+            if(!exito) {
+                res.send ({ exito: false, mensaje: "No se pudo actualizar el stock" });
+            }else{
+                //Cambiar estado pedido
+                const secuenciaSQL= `UPDATE TBL_PEDIDOS 
+                            SET ID_ESTADO = 5
+                            WHERE ID_PEDIDO = ${req.params.id}`;
+
+                //para que haga el commit
+                const options= {
+                    autoCommit: true,
+                    outFormat: oracledb.OUT_FORMAT_OBJECT
+                };
+
+                const result = await connection.execute(secuenciaSQL,[],options);
+                await connection.close();
+
+                if (result.rowsAffected && result.rowsAffected === 1) {
+                    res.send({exito:true, mensaje:"Pedido cancelado"});
+                }else{
+                    res.send({exito:false, mensaje:"No existe el pedido"});
+                }
+            }
+        }else{
+            res.send({exito:false, mensaje:"No existe el pedido"});
+        }
+        // Enviar los datos
+        
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+
+};
 module.exports = pedidoController;

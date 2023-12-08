@@ -28,7 +28,7 @@ vendedorController.login = async (req, res) => {
         if(data == null){
             res.send({exito: false, mensaje: "correo o contraseña incorrectos"})
         }else{
-            res.json({exito: true, consumidor:data }); 
+            res.json({exito: true, vendedor:data }); 
         }        
 
     } catch (error) {
@@ -325,8 +325,6 @@ vendedorController.obtenerTipoPropietarios  = async (req, res) => {
     }
 }
 
-
-
 vendedorController.agregarTarjetaBancaria = async (req, res) => {
     try {
         //Hacemos la conexion
@@ -398,7 +396,5 @@ vendedorController.obtenerTarjetasBancaria = async (req, res) => {
         res.status(500).send({ error: error.message }); 
     }
 }
-
-
 
 module.exports = vendedorController;
