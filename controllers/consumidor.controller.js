@@ -263,4 +263,77 @@ consumidorController.obtenerDirecciones = async (req, res) => {
     }
 }
 
+consumidorController.agregarTarjetaBancaria = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `Insert into TBL_TARJETAS_BANCARIAS ( ID_TIPO_PROPIETARIO, ID_CONSUMIDOR, NUMERO_TARJETA, NOMBRE_PROPIETARIO, FECHA_VENCIMIENTO)	
+        VALUES	(:id_tipo_propietario, :id_consumidor, :numero_tarjeta, :nombre_propietario, to_date(:fecha_vencimiento, 'DD-MM-YYYY') )
+        RETURNING ID_TARJETA INTO :out`;
+
+        //Objeto tarjeta bancaria
+        const binds = {
+            id_tipo_propietario: req.body.id_tipo_propietario,  
+            id_consumidor: req.body.id_consumidor,
+            numero_tarjeta: req.body.numero_tarjeta, 
+            nombre_propietario: req.body.nombre_propietario, 
+            fecha_vencimiento: req.body.fecha_vencimiento,
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            const idTarjeta = result.outBinds.out[0];
+            console.log(idTarjeta);
+            await connection.close();
+            res.send({exito:true, mensaje:"insertada correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"No se pudo insertar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+
+consumidorController.obtenerTarjetasBancaria = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT *
+                                FROM TBL_TARJETAS_BANCARIAS
+                                WHERE ID_CONSUMIDOR = ${req.params.id}`    ;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        // Enviar los datos
+        res.send(result.rows); 
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+
 module.exports = consumidorController;

@@ -272,6 +272,8 @@ productoController.obtenerProductosEnOferta = async (req, res) => {
     }
 }
 
+
+
 module.exports = productoController;
 
 
