@@ -263,6 +263,73 @@ productoController.obtenerProductosEnOferta = async (req, res) => {
     }
 }
 
+productoController.obtenerUno = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT
+                            A.ID_PROD_VEND,
+                            A.SKU,
+                            A.CANTIDAD AS STOCK,
+                            B.NOMBRE AS "PRODUCTO",
+                            B.DESCRIPCION,
+                            B.CALIFICACION,
+                            B.DIMENSIONES,
+                            B.CARACTERISTICA_ESPECIAL,
+                            B.VINETAS,
+                            B.AVISO_LEGAL,
+                            NVL(C.NOMBRE, 'SIN MARCA') AS "MARCA",
+                            A.PRECIO,
+                            A.DESCUENTO,
+                            D.ESTADO,
+                            (E.PRIMER_NOMBRE || ' ' || E.APELLIDO) AS "VENDEDOR",
+                            F.NOMBRE AS EMPRESA
+                        FROM
+                            TBL_PRODUCTOS_EN_VENTA A
+                            LEFT JOIN TBL_PRODUCTOS B ON A.ID_PRODUCTO = B.ID_PRODUCTO
+                            LEFT JOIN TBL_MARCAS C ON B.ID_MARCA = C.ID_MARCA
+                            LEFT JOIN TBL_ESTADOS_PRODUCTOS D ON A.ID_ESTADO = D.ID_ESTADO
+                            LEFT JOIN TBL_VENDEDORES E ON A.ID_VENDEDOR = E.ID_VENDEDOR
+                            LEFT JOIN TBL_EMPRESAS F ON E.ID_EMPRESA = F.ID_EMPRESA
+                        WHERE
+                            A.ID_PROD_VEND = ${req.params.id}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const producto = result.rows[0];
+
+        
+
+        if(producto != null){
+            const secuenciaSQL1= `SELECT
+                                    A.ID_IMAGEN,
+                                    A.SRC
+                                FROM
+                                    TBL_IMAGENES A
+                                WHERE
+                                    A.ID_PRODUCTO = ${req.params.id}`;
+
+            const result1 = await connection.execute(secuenciaSQL1,[],options);
+            await connection.close(); 
+            const imagenes= result1.rows;
+
+            res.send({producto, imagenes});
+        }else{
+            res.send({exito:false, mensaje: "No existe producto"});
+        }
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
 module.exports = productoController;
 
 

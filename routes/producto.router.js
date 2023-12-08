@@ -14,4 +14,7 @@ router.get('/ofertas', productoController.obtenerProductosEnOferta);
 // -Consultar producto por nombre
 router.get('/:nombre', productoController.obtenerProductosPorNombre);
 
+// -Consultar producto por id
+router.get('/obtenerUno/:id', productoController.obtenerUno);
+
 module.exports=router;

@@ -15,6 +15,7 @@ const direccionesRouter = require('./routes/direccion.router');
 const mensajesRouter = require('./routes/mensajes.router')
 const categoriasRouter = require('./routes/categoria.router')
 const productosRouter = require('./routes/producto.router')
+const comentariosRouter = require('./routes/comentario.router');
 
 
 app.use('/consumidores', consumidoresRouter);
@@ -24,6 +25,7 @@ app.use('/mensajes', mensajesRouter);
 app.use('/pedidos', pedidosRouter);
 app.use('/estados', estadosRouter);
 app.use('/direcciones', direccionesRouter);
+app.use('/comentarios', comentariosRouter);
 
 
 app.get('/', (req, res) => {
