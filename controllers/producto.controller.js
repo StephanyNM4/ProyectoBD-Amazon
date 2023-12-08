@@ -316,10 +316,26 @@ productoController.obtenerUno = async (req, res) => {
                                     A.ID_PRODUCTO = ${req.params.id}`;
 
             const result1 = await connection.execute(secuenciaSQL1,[],options);
-            await connection.close(); 
             const imagenes= result1.rows;
 
-            res.send({producto, imagenes});
+            const secuenciaSQL2= `SELECT A.ID_COMENTARIO,
+                                    B.NOMBRE,
+                                    A.CALIFICACION,
+                                    A.ENCABEZADO,
+                                    A.FECHA_PUBLICACION,
+                                    A.COMENTARIO,
+                                    A.UTIL
+                            FROM TBL_COMENTARIOS A
+                            INNER JOIN TBL_CONSUMIDORES B
+                            ON(A.ID_CONSUMIDOR = B.ID_CONSUMIDOR)
+                            WHERE ID_PRODUCTO = ${req.params.id}`;
+
+       
+            const result = await connection.execute(secuenciaSQL2,[],options);
+            const comentarios= result.rows;
+            await connection.close(); 
+            
+            res.send({producto, imagenes, comentarios});
         }else{
             res.send({exito:false, mensaje: "No existe producto"});
         }
