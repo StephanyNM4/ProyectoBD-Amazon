@@ -13,8 +13,8 @@ const pedidosRouter = require('./routes/pedido.router');
 const estadosRouter = require('./routes/estado.router');
 const direccionesRouter = require('./routes/direccion.router');
 const mensajesRouter = require('./routes/mensajes.router')
-const categoriasRouter = require('./routes/categorias.router')
-const productosRouter = require('./routes/productos.router')
+const categoriasRouter = require('./routes/categoria.router')
+const productosRouter = require('./routes/producto.router')
 
 
 app.use('/consumidores', consumidoresRouter);
