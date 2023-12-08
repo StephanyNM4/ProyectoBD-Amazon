@@ -8,9 +8,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 //routers
-const consumidoresRouter = require('./routes/consumidor.router')
+const consumidoresRouter = require('./routes/consumidor.router');
+const pedidosRouter = require('./routes/pedido.router')
 
 app.use('/consumidores', consumidoresRouter);
+app.use('/pedidos', pedidosRouter);
 
 app.get('/', (req, res) => {
     res.send("Servidor levantado correctamente");
