@@ -11,10 +11,12 @@ app.use(cors());
 const consumidoresRouter = require('./routes/consumidor.router');
 const pedidosRouter = require('./routes/pedido.router');
 const estadosRouter = require('./routes/estado.router');
+const direccionesRouter = require('./routes/direccion.router');
 
 app.use('/consumidores', consumidoresRouter);
 app.use('/pedidos', pedidosRouter);
 app.use('/estados', estadosRouter);
+app.use('/direcciones', direccionesRouter);
 
 app.get('/', (req, res) => {
     res.send("Servidor levantado correctamente");

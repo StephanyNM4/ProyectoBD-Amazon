@@ -51,8 +51,11 @@ consumidorController.obtenerUno  = async (req, res) => {
         // Cerrar la conexión después de obtener los datos
         await connection.close(); 
 
-        // Enviar los datos
-        res.json(data); 
+        if(data == null){
+            res.send({exito: false, mensaje: "No se encontró direccion"});
+        }else{
+            res.send({exito: true, direccion: data});
+        }
 
     } catch (error) {
 
@@ -91,9 +94,9 @@ consumidorController.agregar = async (req, res) => {
             const idConsumidor = result.outBinds.out[0];
             console.log(idConsumidor);
             await connection.close();
-            res.send("insertado correctamente");
+            res.send({exito:true, mensaje:"insertado correctamente"});
         }else{
-            res.send("No se pudo insertar");
+            res.send({exito:false, mensaje:"No se pudo insertar"});
         }
     } catch (error) {
 
@@ -130,9 +133,9 @@ consumidorController.actualizar = async (req, res) => {
         await connection.close();
 
         if (result.rowsAffected && result.rowsAffected === 1) {
-            res.send("Consumidor modificado correctamente");
+            res.send({exito:true, mensaje:"Consumidor modificado correctamente"});
         }else{
-            res.send("Error al modificar");
+            res.send({exito:false, mensaje:"Error al modificar"});
         }
     } catch (error) {
 
