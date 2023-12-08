@@ -51,8 +51,11 @@ consumidorController.obtenerUno  = async (req, res) => {
         // Cerrar la conexión después de obtener los datos
         await connection.close(); 
 
-        // Enviar los datos
-        res.json(data); 
+        if(data == null){
+            res.send({exito: false, mensaje: "No se encontró direccion"});
+        }else{
+            res.send({exito: true, direccion: data});
+        }
 
     } catch (error) {
 
@@ -91,9 +94,9 @@ consumidorController.agregar = async (req, res) => {
             const idConsumidor = result.outBinds.out[0];
             console.log(idConsumidor);
             await connection.close();
-            res.send("insertado correctamente");
+            res.send({exito:true, mensaje:"insertado correctamente"});
         }else{
-            res.send("No se pudo insertar");
+            res.send({exito:false, mensaje:"No se pudo insertar"});
         }
     } catch (error) {
 
@@ -130,10 +133,130 @@ consumidorController.actualizar = async (req, res) => {
         await connection.close();
 
         if (result.rowsAffected && result.rowsAffected === 1) {
-            res.send("Consumidor modificado correctamente");
+            res.send({exito:true, mensaje:"Consumidor modificado correctamente"});
         }else{
-            res.send("Error al modificar");
+            res.send({exito:false, mensaje:"Error al modificar"});
         }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+consumidorController.login = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT A.ID_CONSUMIDOR,
+                                    A.NOMBRE
+                            FROM TBL_CONSUMIDORES A
+                            WHERE A.CORREO = '${req.body.correo}'
+                            AND CONTRASENA = '${req.body.contrasena}'`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const data = result.rows[0];
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        if(data == null){
+            res.send({exito: false, mensaje: "correo o contraseña incorrectos"})
+        }else{
+            res.json({exito: true, consumidor:data }); 
+        }        
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+consumidorController.pedidoEstado  = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT A.ID_PEDIDO,
+                                    A.FECHA_ENTREGA,
+                                    A.SUBTOTAL,
+                                    A.ISV,
+                                    A.TOTAL,
+                                    D.LUGAR AS "LUGAR_DE_ENTREGA",
+                                    SUBSTR(
+                                        E.NUMERO_TARJETA,
+                                        LENGTH(E.NUMERO_TARJETA) - 4,
+                                        5
+                                    ) AS "ULTIMOS_DIGITOS_TARJETA_USADA"
+                                FROM TBL_PEDIDOS A
+                                LEFT JOIN TBL_TARJETAS_BANCARIAS B 
+                                ON (A.ID_TARJETA_BANCARIA = B.ID_TARJETA)
+                                LEFT JOIN TBL_DIRECCIONES_CONSUMIDOR C 
+                                ON (A.ID_DIRECCION_CONSUMIDOR = C.ID_DIRECCION_CONSUMIDOR)
+                                LEFT JOIN TBL_LUGARES D 
+                                ON (C.ID_LUGAR = D.ID_LUGAR)
+                                LEFT JOIN TBL_TARJETAS_BANCARIAS E 
+                                ON (A.ID_TARJETA_BANCARIA = E.ID_TARJETA)
+                                WHERE B.ID_CONSUMIDOR = ${req.params.idConsumidor}
+                                AND A.ID_ESTADO = ${req.params.idEstado}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        // Enviar los datos
+        res.send(result.rows); 
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+consumidorController.obtenerDirecciones = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `SELECT A.ID_CONSUMIDOR, 
+                                A.ID_DIRECCION_CONSUMIDOR , 
+                                B.LUGAR  AS "DIRECCION",
+                                B.ZIP,
+                                A.COSTO_ENVIO
+                            FROM TBL_DIRECCIONES_CONSUMIDOR A
+                            LEFT JOIN TBL_LUGARES B  
+                            ON (A.ID_LUGAR=B.ID_LUGAR)
+                            WHERE 
+                            A.ID_CONSUMIDOR = ${req.params.id}`;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+        const data = result.rows;
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        // Enviar los datos
+        res.json(data); 
+
     } catch (error) {
 
         res.status(500).send({ error: error.message }); 
