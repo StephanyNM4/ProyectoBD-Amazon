@@ -29,6 +29,7 @@ app.use('/direcciones', direccionesRouter);
 app.use('/vendedores', vendedoresRouter);
 app.use('/ventas', ventasRouter);
 app.use('/comentarios', comentariosRouter);
+app.use('/mensajes',mensajesRouter);
 
 
 app.get('/', (req, res) => {
