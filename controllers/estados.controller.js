@@ -9,7 +9,7 @@ estadosController.obtenerEstadosPedidos = async (req, res) => {
 
         //Secuencia sql 
         const secuenciaSQL= `SELECT * FROM TBL_ESTADOS_PEDIDO
-                            WHERE ID_ESTADO IN (1,5,8,11)`;
+                            WHERE ID_ESTADO IN (1,5,8)`;
 
         //para que devuelva en JSON los rows
         const options= {
