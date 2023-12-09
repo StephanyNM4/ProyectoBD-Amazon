@@ -5,12 +5,8 @@ const vendedorController = require('../controllers/vendedores.controller')
 // -Login vendedor
 router.post('/login', vendedorController.login);
 
-// -Obtener mensajes de un vendedor
-
-// -Insert empresa (que regrese id empresa creada para el insert del vendedor)
-router.post('/agregarEmpresa', vendedorController.agregarEmpresa);
-
 // -Agregar vendedor que regrese el id para el agregar de la tarjeta 
+        //--------crear la tarjeta, el vendedor y la empresa
 router.post('/agregar', vendedorController.agregarVendedor);
 
 // -Agregar tarjeta bancaria
@@ -18,8 +14,6 @@ router.post('/:id/agregarTarjeta/', vendedorController.agregarTarjetaBancaria);
 
 // -Obtener tarjeta bancaria por id vendedor
 router.get('/:id/tarjetaBancaria', vendedorController.obtenerTarjetasBancaria);
-
-
 
 // -Consulta obtener todos los tipo de cuenta
 router.get('/tiposCuenta', vendedorController.obtenerTiposCuenta);
@@ -33,17 +27,11 @@ router.get('/tiposPropietarios', vendedorController.obtenerTiposPropietarios);
 // -Consulta obtener tipo propietario que retorne id tipo Propietario
 router.get('/tipoPropietario/:id', vendedorController.obtenerTipoPropietarios);
 
+// -Consulta para obtener el total de las ventas de la fecha actual
+router.get('/:id/totalFechaActual', vendedorController.obtenerTotalActualPorFecha);
 
-
-// -Consulta para obtener los lugares padre
-router.get('/lugaresPadre', vendedorController.obtenerLugaresPadre);
-
-// -Obtener lugares hijos
-router.get('/lugarPadre/:id/lugarHijo', vendedorController.obtenerLugarHijo);
-
-
-
-
+// -Ganancias del dia de hoy con un where feche=sysdate
+router.get('/:id/totalGanancias', vendedorController.obtenerTotalGanancias);
 
 
 module.exports=router;

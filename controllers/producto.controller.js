@@ -304,8 +304,6 @@ productoController.obtenerUno = async (req, res) => {
         const result = await connection.execute(secuenciaSQL,[],options);
         const producto = result.rows[0];
 
-        
-
         if(producto != null){
             const secuenciaSQL1= `SELECT
                                     A.ID_IMAGEN,
@@ -330,7 +328,6 @@ productoController.obtenerUno = async (req, res) => {
                             ON(A.ID_CONSUMIDOR = B.ID_CONSUMIDOR)
                             WHERE ID_PRODUCTO = ${req.params.id}`;
 
-       
             const result = await connection.execute(secuenciaSQL2,[],options);
             const comentarios= result.rows;
             await connection.close(); 
@@ -345,6 +342,168 @@ productoController.obtenerUno = async (req, res) => {
         res.status(500).send({ error: error.message }); 
     }
 }
+
+productoController.agregarImagen = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `INSERT INTO TBL_IMAGENES(ID_PRODUCTO,	SRC	)	
+                            VALUES	(:ID_PRODUCTO, :SRC)
+                            RETURNING ID_PRODUCTO INTO :out`;
+
+        //Objeto imagen para producto
+        const binds = {
+            ID_PRODUCTO: req.params.id,	
+            SRC: req.body.SRC,
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+        await connection.close();
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            res.send({exito:true, mensaje:"Imagen agregada correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"Error al agregar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+
+productoController.agregar = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `Insert into
+        TBL_PRODUCTOS ( CALIFICACION, ID_CATEGORIA_PRODUCTO, ID_MARCA, DIMENSIONES, VINETAS, AVISO_LEGAL, CARACTERISTICA_ESPECIAL, NOMBRE, DESCRIPCION)
+                        VALUES
+        (:CALIFICACION, :ID_CATEGORIA_PRODUCTO, :ID_MARCA, :DIMENSIONES, :VINETAS, :AVISO_LEGAL, :CARACTERISTICA_ESPECIAL, :NOMBRE, :DESCRIPCION)
+                            RETURNING ID_PRODUCTO INTO :out`;
+
+        //Objeto imagen para producto
+        const binds = {
+            CALIFICACION: req.body.CALIFICACION,
+            ID_CATEGORIA_PRODUCTO: req.body.ID_CATEGORIA_PRODUCTO,
+            ID_MARCA: req.body.ID_MARCA,
+            DIMENSIONES: req.body.DIMENSIONES,
+            VINETAS: req.body.VINETAS,
+            AVISO_LEGAL: req.body.AVISO_LEGAL,
+            CARACTERISTICA_ESPECIAL: req.body.CARACTERISTICA_ESPECIAL,
+            NOMBRE: req.body.NOMBRE,
+            DESCRIPCION: req.body.DESCRIPCION,
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+        await connection.close();
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            res.send({exito:true, mensaje:"Producto agregado correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"Error al agregar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+
+productoController.agregarKeywordPorProducto = async (req, res) => {
+    try {
+
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `INSERT INTO	TBL_KEYWORDS_PRODUCTOS	(	ID_PRODUCTO,	ID_KEYWORD	)	
+                            VALUES	(	:ID_PRODUCTO,	:ID_KEYWORD	)
+                            RETURNING ID_KEYWORD INTO :out`;
+
+        //Objeto tarjeta bancaria
+        const binds = {
+            ID_PRODUCTO: req.body.ID_PRODUCTO,	
+            ID_KEYWORD: req.body.ID_KEYWORD, 
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            await connection.close();
+            res.send({exito:true, mensaje:"insertada correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"No se pudo insertar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
+productoController.agregarProductos = async (req, res) => {
+    try {
+
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `INSERT INTO	TBL_KEYWORDS_PRODUCTOS	(	ID_PRODUCTO,	ID_KEYWORD	)	
+                            VALUES	(	:ID_PRODUCTO,	:ID_KEYWORD	)
+                            RETURNING ID_KEYWORD INTO :out`;
+
+        //Objeto tarjeta bancaria
+        const binds = {
+            ID_PRODUCTO: req.body.ID_PRODUCTO,	
+            ID_KEYWORD: req.body.ID_KEYWORD, 
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            await connection.close();
+            res.send({exito:true, mensaje:"insertada correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"No se pudo insertar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
 
 
 

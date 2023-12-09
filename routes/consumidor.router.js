@@ -12,6 +12,6 @@ router.get('/:id/direcciones', consumidorController.obtenerDirecciones);
 router.post('/agregarTarjeta', consumidorController.agregarTarjetaBancaria);
 router.get('/:id/tarjetasBancarias', consumidorController.obtenerTarjetasBancaria);
 
-// -Consulta COUNT de mensajes no leidos de los compradores*
+
 module.exports=router;
 
