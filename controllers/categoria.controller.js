@@ -131,4 +131,7 @@ categoriaController.obtenerLugarHijo  = async (req, res) => {
     }
 }
 
+
+
+
 module.exports = categoriaController;

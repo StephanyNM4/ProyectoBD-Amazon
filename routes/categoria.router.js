@@ -14,4 +14,6 @@ router.get('/lugaresPadre', categoriaController.obtenerLugaresPadre);
 // -Obtener lugares hijos
 router.get('/lugarPadre/:id/lugarHijo', categoriaController.obtenerLugarHijo);
 
+
+
 module.exports=router;
