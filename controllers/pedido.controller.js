@@ -196,7 +196,7 @@ pedidoController.agregar = async (req, res) => {
 
 
                 }else{
-                    
+                    res.send({exito:true, mensaje:"No se pudo crear el pedido"});
                 }
 
             }
