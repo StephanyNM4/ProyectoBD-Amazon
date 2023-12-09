@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "d9a508a1-ac96-4442-ae80-8d7ff8b2155a",
+		"_postman_id": "37022206-6ca9-49c7-865e-49a3cd1e5fde",
 		"name": "PROYECTO AMAZON",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28261215"
+		"_exporter_id": "28246446"
 	},
 	"item": [
 		{
@@ -562,253 +562,6 @@
 			]
 		},
 		{
-			"name": "Productos",
-			"item": [
-				{
-					"name": "Obtener productos por categoria",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/categorias/15",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"categorias",
-								"15"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener producto por nombre",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/iphone 13",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"iphone 13"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener productos en oferta",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/ofertas",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"ofertas"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener productos por keyword",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/keyword/nombre/Tecnologia",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"keyword",
-								"nombre",
-								"Tecnologia"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener productos en venta por vendedor",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/ventas/productos/vendedor/1",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"ventas",
-								"productos",
-								"vendedor",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ActualizarVenta",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"PRECIO\": 888.00,\r\n    \"CANTIDAD\": 333,\r\n    \"DESCUENTO\": 0.40\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/ventas/2/actualizar",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"ventas",
-								"2",
-								"actualizar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar imagen producto",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"SRC\" : \"prueba final\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/1/agregarImagen",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"1",
-								"agregarImagen"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar venta (producto en venta)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"ID_PRODUCTO\": \"1\",\r\n    \"ID_VENDEDOR\": \"1\",\r\n    \"ID_ESTADO\": \"1\",\r\n    \"SKU\": 3456,\r\n    \"PRECIO\": 888,\r\n    \"CANTIDAD\": 4,\r\n    \"DESCUENTO\": 0.15\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/ventas/agregar",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"ventas",
-								"agregar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar producto",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"CALIFICACION\": \"3\",\r\n    \"ID_CATEGORIA_PRODUCTO\": \"1\",\r\n    \"ID_MARCA\": \"2\",\r\n    \"DIMENSIONES\": \"14X10\",\r\n    \"VINETAS\": \"FGHJ\",\r\n    \"AVISO_LEGAL\": \"FGHJK\",\r\n    \"CARACTERISTICA_ESPECIAL\": \"DFGHJK\",\r\n    \"NOMBRE\": \"IPHONE 155\",\r\n    \"DESCRIPCION\": \"FGHJKL\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar producto por keyword",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"ID_PRODUCTO\": 17,\r\n    \"ID_KEYWORD\": 4\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregarPorKeyword",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregarPorKeyword"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Estados",
 			"item": [
 				{
@@ -1017,222 +770,6 @@
 			]
 		},
 		{
-			"name": "Productos",
-			"item": [
-				{
-					"name": "Obtener productos por kerword",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/keyword/nombre/teCNologia",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"keyword",
-								"nombre",
-								"teCNologia"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener productos por categoria",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/categorias/15",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"categorias",
-								"15"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Obtener un producto en venta",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/productos/obtenerUno/1",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"obtenerUno",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar una pintura",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tipoProducto\": \"Pintura\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Pintura\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idPintor\": 1,\r\n        \"idTecina\": 1\r\n    },\r\n    \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"HHSGD\",\r\n        \"precio\": 500,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar/vendedor/5",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar",
-								"vendedor",
-								"5"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar Libro",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tipoProducto\": \"Libro\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Libro\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idAutor\": 1,\r\n        \"idEditorial\": 1,\r\n        \"titulo\": \"Titulo Prueba 1\",\r\n        \"cantidadPag\":100,\r\n        \"fechaPublicacion\": \"13-05-2002\"\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 5,\r\n        \"sku\": \"GSYDBFL\",\r\n        \"precio\": 234.9,\r\n        \"cantidad\": 10,\r\n        \"descuento\":0.20\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar/vendedor/1",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar",
-								"vendedor",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar Telefono",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tipoProducto\": \"Telefono\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Telefono\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"idProcesador\": 1,\r\n        \"idSO\": 1,\r\n        \"idMemoriaInterna\":1,\r\n        \"idMemoriaRam\": 1,\r\n        \"modelo\": \"Modelo x\",\r\n        \"bateria\": \"Algo\",\r\n        \"desbloqueo\": 0,\r\n        \"resistibilidad\": 1\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 4,\r\n        \"sku\": \"JVDJDVD\",\r\n        \"precio\": 9008.5,\r\n        \"cantidad\": 100,\r\n        \"descuento\":0.05\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar/vendedor/3",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar",
-								"vendedor",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar juguetes",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tipoProducto\": \"Juguete\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Juguete\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"rangoEdad\": \"10-100\" \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 1,\r\n        \"sku\": \"SBHJDB\",\r\n        \"precio\": 150.36,\r\n        \"cantidad\": 1,\r\n        \"descuento\":0\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar/vendedor/4",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar",
-								"vendedor",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Agregar Equipaje",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"tipoProducto\": \"Equipaje\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Equipaje\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"ruedas\": 1,\r\n        \"pesoSoportado\": 50 \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"NDJDJ\",\r\n        \"precio\": 800,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:5000/productos/agregar/vendedor/2",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"productos",
-								"agregar",
-								"vendedor",
-								"2"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Categorias",
 			"item": [
 				{
@@ -1361,6 +898,400 @@
 							"port": "5000",
 							"path": [
 								"comentarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Obtener productos por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/categorias/15",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"categorias",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener producto por nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/iphone 13",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"iphone 13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos en oferta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/ofertas",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"ofertas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos por keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/keyword/nombre/Tecnologia",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"keyword",
+								"nombre",
+								"Tecnologia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un producto en venta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/obtenerUno/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"obtenerUno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar imagen producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SRC\" : \"prueba final\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/1/agregarImagen",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"1",
+								"agregarImagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto por keyword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID_PRODUCTO\": 17,\r\n    \"ID_KEYWORD\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregarPorKeyword",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregarPorKeyword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Telefono",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Telefono\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Telefono\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"idProcesador\": 1,\r\n        \"idSO\": 1,\r\n        \"idMemoriaInterna\":1,\r\n        \"idMemoriaRam\": 1,\r\n        \"modelo\": \"Modelo x\",\r\n        \"bateria\": \"Algo\",\r\n        \"desbloqueo\": 0,\r\n        \"resistibilidad\": 1\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 4,\r\n        \"sku\": \"JVDJDVD\",\r\n        \"precio\": 9008.5,\r\n        \"cantidad\": 100,\r\n        \"descuento\":0.05\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Equipaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Equipaje\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Equipaje\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"ruedas\": 1,\r\n        \"pesoSoportado\": 50 \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"NDJDJ\",\r\n        \"precio\": 800,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar una pintura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Pintura\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Pintura\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idPintor\": 1,\r\n        \"idTecina\": 1\r\n    },\r\n    \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"HHSGD\",\r\n        \"precio\": 500,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/5",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar juguetes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Juguete\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Juguete\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"rangoEdad\": \"10-100\" \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 1,\r\n        \"sku\": \"SBHJDB\",\r\n        \"precio\": 150.36,\r\n        \"cantidad\": 1,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/4",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Libro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Libro\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Libro\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idAutor\": 1,\r\n        \"idEditorial\": 1,\r\n        \"titulo\": \"Titulo Prueba 1\",\r\n        \"cantidadPag\":100,\r\n        \"fechaPublicacion\": \"13-05-2002\"\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 5,\r\n        \"sku\": \"GSYDBFL\",\r\n        \"precio\": 234.9,\r\n        \"cantidad\": 10,\r\n        \"descuento\":0.20\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ventas",
+			"item": [
+				{
+					"name": "Obtener productos en venta por vendedor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/ventas/productos/vendedor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"productos",
+								"vendedor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarVenta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PRECIO\": 888.00,\r\n    \"CANTIDAD\": 333,\r\n    \"DESCUENTO\": 0.40\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/ventas/2/actualizar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"2",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar venta (producto en venta)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID_PRODUCTO\": \"1\",\r\n    \"ID_VENDEDOR\": \"1\",\r\n    \"ID_ESTADO\": \"1\",\r\n    \"SKU\": 3456,\r\n    \"PRECIO\": 888,\r\n    \"CANTIDAD\": 4,\r\n    \"DESCUENTO\": 0.15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/ventas/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"agregar"
 							]
 						}
 					},

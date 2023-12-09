@@ -26,24 +26,4 @@ router.post('/agregar/vendedor/:idVendedor', productoController.agregar);
 // -Agregar producto por keyword
 router.post('/agregarPorKeyword', productoController.agregarKeywordPorProducto);
 
-//--------------Faltan :c
-
-// -Agregar producto por keyword
-// router.post('/agregarPorKeyword', productoController.agregarKeywordPorProducto);
-
-// --Insert de productos con atributos especificos(tablas de herencia)
-// router.post('/atributosEspecificos', productoController.agregarProductos);
-
-// (si existe al crear el producto no se ocupa llenar los campos generales si no existe 
-// hacer el insert en la general de productos )
-// -Si el producto ya existe solo mandar campos de la tabla productos en venta
-// router.post('/agregarVerificar', productoController.agregarVerificar);
-
-
-
-
-
-
-
-
 module.exports=router;
