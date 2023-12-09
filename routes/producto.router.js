@@ -23,6 +23,9 @@ router.post('/:id/agregarImagen', productoController.agregarImagen);
 // -Agregar producto 
 router.post('/agregar/vendedor/:idVendedor', productoController.agregar);
 
+// -Agregar producto por keyword
+router.post('/agregarPorKeyword', productoController.agregarKeywordPorProducto);
+
 //--------------Faltan :c
 
 // -Agregar producto por keyword

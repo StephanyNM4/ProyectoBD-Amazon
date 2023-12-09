@@ -1,0 +1,1372 @@
+{
+	"info": {
+		"_postman_id": "d9a508a1-ac96-4442-ae80-8d7ff8b2155a",
+		"name": "PROYECTO AMAZON",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28261215"
+	},
+	"item": [
+		{
+			"name": "Consumidores",
+			"item": [
+				{
+					"name": "Obtener todos los consumidores",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un consumidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Consumidor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Prueba 2\",\r\n    \"correo\": \"prueba@gmail.com\",\r\n    \"contrasena\": \"1234\",\r\n    \"numTelefono\" : \"6985\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/consumidores",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar consumidor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Prueba actualizado\",\r\n    \"correo\": \"prueba12@gmail.com\",\r\n    \"contrasena\": \"nuevacontra\",\r\n    \"numTelefono\" : \"6985\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/consumidores/7",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener pedidos de un consumidor dependiendo el estado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores/1/pedidos/estado/8",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"1",
+								"pedidos",
+								"estado",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login consumidor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\": \"prueba12@gmail.com\",\r\n    \"contrasena\": \"nuevacontra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/consumidores/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tarjetas bancarias consumidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores/2/tarjetasBancarias",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"2",
+								"tarjetasBancarias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar tarjeta bancaria consumidor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_tipo_propietario\": 1,\r\n    \"id_consumidor\": 3,\r\n    \"numero_tarjeta\": \"456789\",\r\n    \"nombre_propietario\": \"Tommy\",\r\n    \"fecha_vencimiento\": \"10-12-2004\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/consumidores/agregarTarjeta",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"agregarTarjeta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener direcciones consumidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores/1/direcciones",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"1",
+								"direcciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos comprados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/consumidores/1/productosComprados",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"consumidores",
+								"1",
+								"productosComprados"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vendedor",
+			"item": [
+				{
+					"name": "Obtener tipos cuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/tiposCuenta",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"tiposCuenta"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un tipo de cuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/tipoCuenta/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"tipoCuenta",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tipos propietarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/tiposPropietarios",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"tiposPropietarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener total ganancias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/3/totalGanancias",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"3",
+								"totalGanancias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un tipo de propietario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/tipoPropietario/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"tipoPropietario",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener total actual por fecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/3/totalFechaActual",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"3",
+								"totalFechaActual"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener tarjetas bancarias vendedor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/vendedores/2/tarjetaBancaria",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"2",
+								"tarjetaBancaria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login vendedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\" : \"Maria@gmail.com\",\r\n    \"contrasena\" : \"asd456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/vendedores/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar vendedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"vendedor\" : {\r\n        \"id_tipo_cuenta\" : 1,\r\n            \"empresa\" : {\r\n                \"ID_LUGAR\" : 1,\r\n                \"NOMBRE\" : \"T.O.M\",\r\n                \"NUM_REGISTRO\" : 5678\r\n            },\r\n        \"id_lugar_residencia\" : 8,\r\n        \"id_lugar_nacimiento\" : 8,\r\n        \"primer_nombre\" : \"Carlos\",\r\n        \"segundo_nombre\" : \"Alejandro\",\r\n        \"apellido\" : \"Hernandez\",\r\n        \"correo\" : \"carlos45@gmail.com\",\r\n        \"contrasena\" : \"asd456\",\r\n        \"fecha_nacimiento\" : \"10-12-2004\",\r\n        \"identificacion\" : 1234,\r\n        \"numero_telefonico\" : 4545\r\n    },\r\n    \"tarjetaBancaria\" : {\r\n        \"numero_tarjeta\" : 4545,\r\n        \"nombre_propietario\" : \"Tommy\",\r\n        \"fecha_vencimiento\" : \"31-12-2026\"\r\n    }\r\n\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/vendedores/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar tarjeta bancaria vendedor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_tipo_propietario\": 2,\r\n    \"numero_tarjeta\": 456789,\r\n    \"nombre_propietario\": \"Final\",\r\n    \"fecha_vencimiento\": \"10-12-2004\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/vendedores/5/agregarTarjeta",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"vendedores",
+								"5",
+								"agregarTarjeta"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "Obtener productos por pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/pedidos/1/productos",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pedidos",
+								"1",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear pedido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idDireccionConsumidor\":2,\r\n    \"idTarjetaBancaria\": 1,\r\n    \"productos\": [\r\n        {\r\n            \"id\": 33,\r\n            \"cantidad\": 3\r\n        },\r\n        {\r\n            \"id\": 34,\r\n            \"cantidad\": 11\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/pedidos",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pedido entregado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/pedidos/6/entregado",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pedidos",
+								"6",
+								"entregado"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancelar pedido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/pedidos/6/cancelar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"pedidos",
+								"6",
+								"cancelar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Obtener productos por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/categorias/15",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"categorias",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener producto por nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/iphone 13",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"iphone 13"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos en oferta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/ofertas",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"ofertas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos por keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/keyword/nombre/Tecnologia",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"keyword",
+								"nombre",
+								"Tecnologia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos en venta por vendedor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/ventas/productos/vendedor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"productos",
+								"vendedor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarVenta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"PRECIO\": 888.00,\r\n    \"CANTIDAD\": 333,\r\n    \"DESCUENTO\": 0.40\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/ventas/2/actualizar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"2",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar imagen producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"SRC\" : \"prueba final\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/1/agregarImagen",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"1",
+								"agregarImagen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar venta (producto en venta)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID_PRODUCTO\": \"1\",\r\n    \"ID_VENDEDOR\": \"1\",\r\n    \"ID_ESTADO\": \"1\",\r\n    \"SKU\": 3456,\r\n    \"PRECIO\": 888,\r\n    \"CANTIDAD\": 4,\r\n    \"DESCUENTO\": 0.15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/ventas/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"ventas",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CALIFICACION\": \"3\",\r\n    \"ID_CATEGORIA_PRODUCTO\": \"1\",\r\n    \"ID_MARCA\": \"2\",\r\n    \"DIMENSIONES\": \"14X10\",\r\n    \"VINETAS\": \"FGHJ\",\r\n    \"AVISO_LEGAL\": \"FGHJK\",\r\n    \"CARACTERISTICA_ESPECIAL\": \"DFGHJK\",\r\n    \"NOMBRE\": \"IPHONE 155\",\r\n    \"DESCRIPCION\": \"FGHJKL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar producto por keyword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ID_PRODUCTO\": 17,\r\n    \"ID_KEYWORD\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregarPorKeyword",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregarPorKeyword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Estados",
+			"item": [
+				{
+					"name": "Obtener estados pedido",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/estados/pedidos",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"estados",
+								"pedidos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Direcciones",
+			"item": [
+				{
+					"name": "Agregar direcciones al consumidor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idConsumidor\": 7,\r\n    \"idLugar\": 9,\r\n    \"costo\": 350\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/direcciones",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"direcciones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar direccion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"lugar\": 8,\r\n    \"costo\": 400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/direcciones/19",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"direcciones",
+								"19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener una direccion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/direcciones/19",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"direcciones",
+								"19"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mensajes",
+			"item": [
+				{
+					"name": "Obtener todos los mensajes consumidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/mensajes/obtenerTodos/consumidor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mensajes",
+								"obtenerTodos",
+								"consumidor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener mensajes enviador consumidor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/mensajes/obtenerEnviados/consumidor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mensajes",
+								"obtenerEnviados",
+								"consumidor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener conversacion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idVendedor\": 2,\r\n    \"idConsumidor\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mensajes/obtenerConversacion",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mensajes",
+								"obtenerConversacion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear mensaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idVendedor\": 5,\r\n    \"idConsumidor\": 7,\r\n    \"idMensajePadre\": 15,\r\n    \"mensaje\": \"Hola, cuesta 5000 lps\",\r\n    \"emisor\": \"V\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/mensajes",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"mensajes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "Obtener productos por kerword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/keyword/nombre/teCNologia",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"keyword",
+								"nombre",
+								"teCNologia"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener productos por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/categorias/15",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"categorias",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un producto en venta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/productos/obtenerUno/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"obtenerUno",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar una pintura",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Pintura\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Pintura\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idPintor\": 1,\r\n        \"idTecina\": 1\r\n    },\r\n    \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"HHSGD\",\r\n        \"precio\": 500,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/5",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Libro",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Libro\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Libro\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idAutor\": 1,\r\n        \"idEditorial\": 1,\r\n        \"titulo\": \"Titulo Prueba 1\",\r\n        \"cantidadPag\":100,\r\n        \"fechaPublicacion\": \"13-05-2002\"\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 5,\r\n        \"sku\": \"GSYDBFL\",\r\n        \"precio\": 234.9,\r\n        \"cantidad\": 10,\r\n        \"descuento\":0.20\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Telefono",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Telefono\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Telefono\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"idProcesador\": 1,\r\n        \"idSO\": 1,\r\n        \"idMemoriaInterna\":1,\r\n        \"idMemoriaRam\": 1,\r\n        \"modelo\": \"Modelo x\",\r\n        \"bateria\": \"Algo\",\r\n        \"desbloqueo\": 0,\r\n        \"resistibilidad\": 1\r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 4,\r\n        \"sku\": \"JVDJDVD\",\r\n        \"precio\": 9008.5,\r\n        \"cantidad\": 100,\r\n        \"descuento\":0.05\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar juguetes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Juguete\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Juguete\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"idColor\": 1,\r\n        \"rangoEdad\": \"10-100\" \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 1,\r\n        \"sku\": \"SBHJDB\",\r\n        \"precio\": 150.36,\r\n        \"cantidad\": 1,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/4",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Equipaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipoProducto\": \"Equipaje\",\r\n    \"productoCrear\": {\r\n        \"calificacion\": 5,\r\n        \"idCategoria\": 1,\r\n        \"idMarca\": 12,\r\n        \"dimensiones\": \"15cm x 20cm\",\r\n        \"vinetas\": \"Algo\",\r\n        \"avisoLegal\": \"Aviso Legal\",\r\n        \"caracteristaEspecial\": \"caracterista Especial\",\r\n        \"nombre\": \"Producto Prueba Equipaje\",\r\n        \"descripcion\": \"Descripcion\"\r\n    },\r\n    \"atributosAdicionales\": {\r\n        \"ruedas\": 1,\r\n        \"pesoSoportado\": 50 \r\n    },\r\n     \"productoVendedor\":{\r\n        \"idEstado\": 3,\r\n        \"sku\": \"NDJDJ\",\r\n        \"precio\": 800,\r\n        \"cantidad\": 50,\r\n        \"descuento\":0\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/productos/agregar/vendedor/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"productos",
+								"agregar",
+								"vendedor",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Obtener categorias padre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/categorias/productosPadre",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"categorias",
+								"productosPadre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener categorias hijas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/categorias/productosHijas/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"categorias",
+								"productosHijas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener lugares padre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/categorias/lugaresPadre",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"categorias",
+								"lugaresPadre"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener lugares hijos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/categorias/lugarPadre/2/lugarHijo",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"categorias",
+								"lugarPadre",
+								"2",
+								"lugarHijo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comentarios",
+			"item": [
+				{
+					"name": "Obtener comentarios de un producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/comentarios/producto/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"comentarios",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar comentario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idProducto\": 5,\r\n    \"idConsumidor\": 4,\r\n    \"calificacion\": 3,\r\n    \"encabezado\": \"Nuevo comentario\",\r\n    \"comentario\": \"Algo para comentar\",\r\n    \"util\": \"0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/comentarios",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"comentarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -623,6 +623,43 @@ productoController.agregarProductos = async (req, res) => {
     }
 }
 
+productoController.agregarKeywordPorProducto = async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+
+        //Secuencia sql 
+        const secuenciaSQL= `INSERT INTO	TBL_KEYWORDS_PRODUCTOS	(	ID_PRODUCTO, ID_KEYWORD	)	
+                                VALUES	(	:ID_PRODUCTO,	:ID_KEYWORD	)
+                                RETURNING ID_KEYWORD INTO :out`;
+
+        //Objeto keyword - producto
+        const binds = {
+            ID_PRODUCTO: req.body.ID_PRODUCTO,
+            ID_KEYWORD: req.body.ID_KEYWORD,
+            out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
+        };
+
+        //para que haga el commit
+        const options= {
+            autoCommit: true,
+            outFormat: oracledb.OUT_FORMAT_OBJECT
+        };
+
+        const result = await connection.execute(secuenciaSQL,binds,options);
+
+        if (result.rowsAffected && result.rowsAffected === 1) {
+            await connection.close();
+            res.send({exito:true, mensaje:"insertado correctamente"});
+        }else{
+            res.send({exito:false, mensaje:"No se pudo insertar"});
+        }
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
 
 
 
