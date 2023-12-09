@@ -385,25 +385,25 @@ productoController.agregar = async (req, res) => {
     try {
         //Hacemos la conexion
         const connection = await oracledb.getConnection(dbConfig);
+        let banderaCrear= false;
 
         //Secuencia sql 
         const secuenciaSQL= `Insert into
         TBL_PRODUCTOS ( CALIFICACION, ID_CATEGORIA_PRODUCTO, ID_MARCA, DIMENSIONES, VINETAS, AVISO_LEGAL, CARACTERISTICA_ESPECIAL, NOMBRE, DESCRIPCION)
-                        VALUES
-        (:CALIFICACION, :ID_CATEGORIA_PRODUCTO, :ID_MARCA, :DIMENSIONES, :VINETAS, :AVISO_LEGAL, :CARACTERISTICA_ESPECIAL, :NOMBRE, :DESCRIPCION)
-                            RETURNING ID_PRODUCTO INTO :out`;
+        VALUES (:calificacion, :idCategoria, :idMarca, :dimensiones, :vinetas, :avisoLegal, :caracteristaEspecial, :nombre, :descripcion)
+        RETURNING ID_PRODUCTO INTO :out`;
 
         //Objeto imagen para producto
         const binds = {
-            CALIFICACION: req.body.CALIFICACION,
-            ID_CATEGORIA_PRODUCTO: req.body.ID_CATEGORIA_PRODUCTO,
-            ID_MARCA: req.body.ID_MARCA,
-            DIMENSIONES: req.body.DIMENSIONES,
-            VINETAS: req.body.VINETAS,
-            AVISO_LEGAL: req.body.AVISO_LEGAL,
-            CARACTERISTICA_ESPECIAL: req.body.CARACTERISTICA_ESPECIAL,
-            NOMBRE: req.body.NOMBRE,
-            DESCRIPCION: req.body.DESCRIPCION,
+            calificacion: req.body.productoCrear.calificacion,
+            idCategoria: req.body.productoCrear.idCategoria,
+            idMarca: req.body.productoCrear.idMarca,
+            dimensiones: req.body.productoCrear.dimensiones,
+            vinetas: req.body.productoCrear.vinetas,
+            avisoLegal: req.body.productoCrear.avisoLegal,
+            caracteristaEspecial: req.body.productoCrear.caracteristaEspecial,
+            nombre: req.body.productoCrear.nombre,
+            descripcion: req.body.productoCrear.descripcion,
             out: { type: oracledb.NUMBER, dir: oracledb.BIND_OUT }
         };
 
@@ -414,10 +414,129 @@ productoController.agregar = async (req, res) => {
         };
 
         const result = await connection.execute(secuenciaSQL,binds,options);
-        await connection.close();
-
         if (result.rowsAffected && result.rowsAffected === 1) {
-            res.send({exito:true, mensaje:"Producto agregado correctamente"});
+
+            const idProducto = result.outBinds.out[0];
+
+            if(req.body.tipoProducto == "Pintura"){
+                const secuenciaSQL1= `Insert into TBL_PINTURAS (ID_PRODUCTO, ID_TECNICA, ID_PINTOR	)	VALUES	(:idProd, :idTecnica, :idPintor)`;
+
+                const binds1 = {
+                    idProd: idProducto,
+                    idTecnica: req.body.atributosAdicionales.idTecina,
+                    idPintor: req.body.atributosAdicionales.idPintor,
+                };
+
+                const result1 = await connection.execute(secuenciaSQL1,binds1,options);
+
+                if(result1.rowsAffected === 1){
+                    banderaCrear=true;
+                }
+                
+            }else if(req.body.tipoProducto == "Libro"){
+
+                const secuenciaSQL2= `Insert into TBL_LIBROS (ID_PRODUCTO,	ID_EDITORIAL, ID_AUTOR,	CANTIDAD_PAGINAS, TITULO, FECHA_PUBLICACION	)	
+                    VALUES (:idProd, :idEditorial, :idAutor, :cantidadPag, :titulo,	to_date(:fechaPublicacion, 'DD-MM-YYYY')) `;
+                
+                const binds2 = {
+                    idProd: idProducto,
+                    idEditorial: req.body.atributosAdicionales.idEditorial,
+                    idAutor: req.body.atributosAdicionales.idAutor,
+                    cantidadPag: req.body.atributosAdicionales.cantidadPag,
+                    titulo: req.body.atributosAdicionales.titulo,
+                    fechaPublicacion: req.body.atributosAdicionales.fechaPublicacion
+                };
+
+                const result2 = await connection.execute(secuenciaSQL2,binds2,options);
+
+                if(result2.rowsAffected === 1){
+                    banderaCrear=true;
+                }
+
+            }else if(req.body.tipoProducto == "Telefono"){
+
+                const secuenciaSQL3= `Insert into TBL_TELEFONOS	(DESBLOQUEO_BIOMETRICO,	RESISTIBILIDAD_AGUA, ID_PROCESADOR, ID_SISTEMA_OPERATIVO, 
+                ID_MEMORIA_RAM, ID_PRODUCTO, ID_MEMORIA_INTERNA, MODELO,BATERIA, ID_COLOR)	
+                VALUES	(:desbloqueo, :resistibilidad, :idProcesador, :idSO, :idMemoriaRam,	:idProd, :idMemoriaInterna, :modelo, :bateria, :idColor)`;
+                
+                const binds3 = {
+                    idProd: idProducto,
+                    desbloqueo: req.body.atributosAdicionales.desbloqueo,
+                    resistibilidad: req.body.atributosAdicionales.resistibilidad,
+                    idProcesador: req.body.atributosAdicionales.idProcesador,
+                    idSO: req.body.atributosAdicionales.idSO,
+                    idMemoriaRam: req.body.atributosAdicionales.idMemoriaRam,
+                    bateria: req.body.atributosAdicionales.bateria,
+                    idMemoriaInterna: req.body.atributosAdicionales.idMemoriaInterna,
+                    modelo: req.body.atributosAdicionales.modelo,
+                    idColor: req.body.atributosAdicionales.idColor
+                };
+
+                const result3 = await connection.execute(secuenciaSQL3,binds3,options);
+
+                if(result3.rowsAffected === 1){
+                    banderaCrear=true;
+                }
+
+            }else if(req.body.tipoProducto == "Juguete"){
+                const secuenciaSQL4= `Insert into TBL_JUGUETES ( ID_PRODUCTO, RANGO_EDAD, ID_COLOR ) VALUES	(:idProd, :rangoEdad, :idColor)`;
+
+                const binds4 = {
+                    idProd: idProducto,
+                    rangoEdad: req.body.atributosAdicionales.rangoEdad,
+                    idColor: req.body.atributosAdicionales.idColor,
+                };
+
+                const result4 = await connection.execute(secuenciaSQL4,binds4,options);
+
+                if(result4.rowsAffected === 1){
+                    banderaCrear=true;
+                }
+                
+            }else if(req.body.tipoProducto == "Equipaje"){
+                const secuenciaSQL5= `Insert into TBL_EQUIPAJES	( ID_PRODUCTO, RUEDAS, PESO_SOPORTADO ) VALUES ( :idProd, :ruedas,	:pesoSoportado)`;
+
+                const binds5 = {
+                    idProd: idProducto,
+                    ruedas: req.body.atributosAdicionales.ruedas,
+                    pesoSoportado: req.body.atributosAdicionales.pesoSoportado,
+                };
+
+                const result5 = await connection.execute(secuenciaSQL5,binds5,options);
+
+                if(result5.rowsAffected === 1){
+                    banderaCrear=true;
+                }
+                
+            }
+
+            if(banderaCrear){
+                //insertar productos en venta
+                const secuenciaSQL6= `INSERT INTO TBL_PRODUCTOS_EN_VENTA ( ID_PRODUCTO, ID_VENDEDOR, ID_ESTADO, SKU, PRECIO, CANTIDAD, DESCUENTO )	
+                VALUES	(:idProd,	:idVendedor, :idEstado, :sku, :precio, :cantidad, :descuento)`;
+
+                //Objeto imagen para producto
+                const binds6 = {
+                    idProd: idProducto,
+                    idVendedor: req.params.idVendedor,
+                    idEstado: req.body.productoVendedor.idEstado,
+                    sku: req.body.productoVendedor.sku,
+                    precio: req.body.productoVendedor.precio,
+                    cantidad: req.body.productoVendedor.cantidad,
+                    descuento: req.body.productoVendedor.descuento
+                };
+
+                const result6 = await connection.execute(secuenciaSQL6,binds6,options);
+                if(result6.rowsAffected === 1){
+                    res.send({exito:true, mensaje:"Producto insertado y agregado al vendedor correctamente"});
+                }else{
+                    res.send({exito:false, mensaje:"Error al agregar producto al vendedor"});
+                }
+
+
+            }else{
+                res.send({exito:false, mensaje:"Error al agregar"});
+            }
         }else{
             res.send({exito:false, mensaje:"Error al agregar"});
         }
