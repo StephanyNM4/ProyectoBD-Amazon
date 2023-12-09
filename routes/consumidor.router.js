@@ -11,6 +11,7 @@ router.get('/:idConsumidor/pedidos/estado/:idEstado', consumidorController.pedid
 router.get('/:id/direcciones', consumidorController.obtenerDirecciones);
 router.post('/agregarTarjeta', consumidorController.agregarTarjetaBancaria);
 router.get('/:id/tarjetasBancarias', consumidorController.obtenerTarjetasBancaria);
+router.get('/:id/productosComprados', consumidorController.obtenerProductosComprados);
 
 
 module.exports=router;

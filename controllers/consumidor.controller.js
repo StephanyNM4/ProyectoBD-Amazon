@@ -335,5 +335,75 @@ consumidorController.obtenerTarjetasBancaria = async (req, res) => {
     }
 }
 
+consumidorController.obtenerProductosComprados =  async (req, res) => {
+    try {
+        //Hacemos la conexion
+        const connection = await oracledb.getConnection(dbConfig);
+        //Secuencia sql 
+        const secuenciaSQL= `WITH CTE AS (
+                            SELECT
+                                C.ID_PROD_VEND,
+                                D.NOMBRE AS PRODUCTO,
+                                NVL(G.NOMBRE, 'SIN MARCA') AS MARCA,
+                                D.DESCRIPCION,
+                                D.CARACTERISTICA_ESPECIAL,
+                                D.VINETAS,
+                                B.PRECIO,
+                                (F.PRIMER_NOMBRE || ' ' || F.APELLIDO) AS VENDEDOR,
+                                A.FECHA_ENTREGA AS "COMPRADO",
+                                H.SRC AS IMAGEN,
+                                ROW_NUMBER() OVER (
+                                    PARTITION BY C.ID_PROD_VEND
+                                    ORDER BY
+                                        H.ID_IMAGEN
+                                ) AS row_num
+                            FROM
+                                TBL_PEDIDOS A
+                                LEFT JOIN TBL_PRODUCTOS_PEDIDOS B ON A.ID_PEDIDO = B.ID_PEDIDO
+                                LEFT JOIN TBL_PRODUCTOS_EN_VENTA C ON B.ID_PROD_VEND = C.ID_PROD_VEND
+                                LEFT JOIN TBL_PRODUCTOS D ON C.ID_PRODUCTO = D.ID_PRODUCTO
+                                LEFT JOIN TBL_TARJETAS_BANCARIAS E ON A.ID_TARJETA_BANCARIA = E.ID_TARJETA
+                                LEFT JOIN TBL_VENDEDORES F ON C.ID_VENDEDOR = F.ID_VENDEDOR
+                                LEFT JOIN TBL_MARCAS G ON D.ID_MARCA = G.ID_MARCA
+                                LEFT JOIN TBL_IMAGENES H ON D.ID_PRODUCTO = H.ID_PRODUCTO
+                            WHERE
+                                E.ID_CONSUMIDOR = ${req.params.id}
+                                AND A.ID_ESTADO = 8
+                        )
+                        SELECT
+                            ID_PROD_VEND,
+                            "PRODUCTO",
+                            "MARCA",
+                            DESCRIPCION,
+                            CARACTERISTICA_ESPECIAL,
+                            VINETAS,
+                            PRECIO,
+                            "VENDEDOR",
+                            "COMPRADO",
+                            "IMAGEN"
+                        FROM
+                            CTE
+                        WHERE
+                            row_num = 1`    ;
+
+        //para que devuelva en JSON los rows
+        const options= {
+            outFormat: oracledb.OUT_FORMAT_OBJECT,
+        };
+
+        const result = await connection.execute(secuenciaSQL,[],options);
+
+        // Cerrar la conexión después de obtener los datos
+        await connection.close(); 
+
+        // Enviar los datos
+        res.send(result.rows); 
+
+    } catch (error) {
+
+        res.status(500).send({ error: error.message }); 
+    }
+}
+
 
 module.exports = consumidorController;
