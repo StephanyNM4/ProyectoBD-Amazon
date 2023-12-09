@@ -269,7 +269,7 @@ vendedorController.agregarTarjetaBancaria = async (req, res) => {
         //Objeto tarjeta bancaria
         const binds = {
             id_tipo_propietario: req.body.id_tipo_propietario,  
-            id_vendedor: req.body.id_vendedor, 
+            id_vendedor: req.params.id, 
             numero_tarjeta: req.body.numero_tarjeta, 
             nombre_propietario: req.body.nombre_propietario, 
             fecha_vencimiento: req.body.fecha_vencimiento,

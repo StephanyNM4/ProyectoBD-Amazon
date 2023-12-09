@@ -10,7 +10,7 @@ router.post('/login', vendedorController.login);
 router.post('/agregar', vendedorController.agregarVendedor);
 
 // -Agregar tarjeta bancaria
-router.post('/:id/agregarTarjeta/', vendedorController.agregarTarjetaBancaria);
+router.post('/:id/agregarTarjeta', vendedorController.agregarTarjetaBancaria);
 
 // -Obtener tarjeta bancaria por id vendedor
 router.get('/:id/tarjetaBancaria', vendedorController.obtenerTarjetasBancaria);
