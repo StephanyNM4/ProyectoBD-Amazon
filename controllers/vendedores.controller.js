@@ -8,11 +8,10 @@ vendedorController.login = async (req, res) => {
         const connection = await oracledb.getConnection(dbConfig);
 
         //Secuencia sql 
-        const secuenciaSQL= `SELECT A.ID_VENDEDOR,
-                            A.PRIMER_NOMBRE ||' '|| A.SEGUNDO_NOMBRE || ' '|| A.APELLIDO NOMBRE_COMPLETO
+        const secuenciaSQL= `SELECT A.ID_VENDEDOR
                             FROM TBL_VENDEDORES A
-                            WHERE A.PRIMER_NOMBRE ||' '|| A.SEGUNDO_NOMBRE || ' '|| A.APELLIDO = '${req.body.nombreCompleto}'
-                            AND CONTRASENA = '${req.body.contrasena}'`;
+                            WHERE A.CORREO = '${req.body.correo}'
+                            AND A.CONTRASENA = '${req.body.contrasena}'`;
 
         //para que devuelva en JSON los rows
         const options= {
@@ -155,8 +154,8 @@ vendedorController.agregarVendedorYEmpresa = async (Vendedor) => {
         const connection = await oracledb.getConnection(dbConfig);
 
         //Secuencia sql 
-        const secuenciaSQL= `Insert into TBL_VENDEDORES	(ID_TIPO_CUENTA, ID_EMPRESA, ID_LUGAR_RESIDENCIA, ID_LUGAR_NACIMIENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, APELLIDO, FECHA_NACIMIENTO, IDENTIFICACION, FECHA_INICIO_CUENTA, NUMERO_TELEFONICO)	
-        VALUES	(:id_tipo_cuenta, :id_empresa, :id_lugar_residencia, :id_lugar_nacimiento, :primer_nombre, :segundo_nombre, :apellido, to_date(:fecha_nacimiento, 'DD-MM-YYYY') , :identificacion, sysdate , :numero_telefonico)
+        const secuenciaSQL= `Insert into TBL_VENDEDORES	(ID_TIPO_CUENTA, ID_EMPRESA, ID_LUGAR_RESIDENCIA, ID_LUGAR_NACIMIENTO, PRIMER_NOMBRE, SEGUNDO_NOMBRE, APELLIDO, CORREO, CONTRASENA, FECHA_NACIMIENTO, IDENTIFICACION, FECHA_INICIO_CUENTA, NUMERO_TELEFONICO)	
+        VALUES	(:id_tipo_cuenta, :id_empresa, :id_lugar_residencia, :id_lugar_nacimiento, :primer_nombre, :segundo_nombre, :apellido, :correo, :contrasena, to_date(:fecha_nacimiento, 'DD-MM-YYYY') , :identificacion, sysdate , :numero_telefonico)
         RETURNING ID_VENDEDOR INTO :out`;
 
         //Objeto vendedor
@@ -168,6 +167,8 @@ vendedorController.agregarVendedorYEmpresa = async (Vendedor) => {
             primer_nombre: Vendedor.primer_nombre, 
             segundo_nombre: Vendedor.segundo_nombre, 
             apellido: Vendedor.apellido, 
+            correo: Vendedor.correo,
+            contrasena: Vendedor.contrasena,
             fecha_nacimiento: Vendedor.fecha_nacimiento, 
             identificacion: Vendedor.identificacion, 
             numero_telefonico: Vendedor.numero_telefonico,
