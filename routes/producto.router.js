@@ -21,7 +21,7 @@ router.get('/obtenerUno/:id', productoController.obtenerUno);
 router.post('/:id/agregarImagen', productoController.agregarImagen);
 
 // -Agregar producto 
-router.post('/agregar', productoController.agregar);
+router.post('/agregar/vendedor/:idVendedor', productoController.agregar);
 
 //--------------Faltan :c
 
